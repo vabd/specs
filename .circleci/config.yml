@@ -15,8 +15,5 @@ jobs:
       - run:
           name: Build
           command: BASE_URL="/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; hugo -v -b $BASE_URL
-      - run:
-          name: HTML Proofer
-          command: htmlproofer public --allow-hash-href --check-html --empty-alt-ignore
       - store_artifacts:
           path: public
