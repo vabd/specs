@@ -1,15 +1,10 @@
 version: 2.1
 
-orbs:
-  hugo: felicianotech/hugo@0.0.5
-
 jobs:
   build_specs:
-    machine:
-      enabled: true
+    docker:
+      - image: cibuilds/hugo:0.53
     steps:
-      - hugo/install:
-        version: 0.53
       - checkout
-      - run: hugo build
+      - run: hugo -v -s src/
 
