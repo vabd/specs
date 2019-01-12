@@ -6,13 +6,7 @@ jobs:
       - image: cibuilds/hugo:0.53
     steps:
       - checkout
-      - run:
-        name: Submodules init
-        command: git submodule init
-      - run:
-        name: Submodules update
-        command: git submodule update --remote
-      - run:
-        name: Build
-        command: hugo -v
+      - run: git submodule init
+      - run: git submodule update --remote
+      - run: hugo -v
 
