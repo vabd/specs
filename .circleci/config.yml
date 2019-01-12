@@ -6,11 +6,17 @@ jobs:
       - image: cibuilds/hugo:0.53
     steps:
       - checkout
-      - run: git submodule init
-      - run: git submodule update --remote
-      - run: BASE_URL="/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; hugo -v -b $BASE_URL
+      - run:
+          name: Submodules init
+          command: git submodule init
+      - run:
+          name: Submodule update
+          command: git submodule update --remote
+      - run:
+          name: Build
+          command: BASE_URL="/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; hugo -v -b $BASE_URL
+      - run:
+          name: HTML Proofer
+          command: htmlproofer ~/project/src/public --allow-hash-href --check-html --empty-alt-ignore
       - store_artifacts:
           path: public
-      - run:
-          name: "Doc build is available at:"
-          command: DOCS_URL="/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; echo $DOCS_URL
