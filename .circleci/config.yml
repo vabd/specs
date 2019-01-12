@@ -9,4 +9,9 @@ jobs:
       - run: git submodule init
       - run: git submodule update --remote
       - run: hugo -v
+      - store_artifacts:
+        path: public
+      - run:
+        name: "Doc build is available at:"
+        command: DOCS_URL="${CIRCLE_BUILD_URL}/artifacts/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; echo $DOCS_URL
 
