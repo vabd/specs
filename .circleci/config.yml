@@ -4,9 +4,7 @@ orbs:
   hugo: felicianotech/hugo@0.0.5
 
 workflows:
-  build:
+  build_specs:
     jobs:
       - hugo/install
-      - hugo/build:
-        requires:
-          - hugo/install
+      - hugo/build
