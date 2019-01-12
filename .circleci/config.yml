@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build_specs:
+  build:
     docker:
       - image: cibuilds/hugo:0.53
     steps:
