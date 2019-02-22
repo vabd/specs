@@ -1,5 +1,11 @@
 version: 2
 
+executors:
+  workspace:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
+
 jobs:
   build:
     docker:
@@ -15,14 +21,18 @@ jobs:
       - run:
           name: Build
           command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL
+      - persist_to_workspace:
+          root: public
   deploy:
     machine:
       enabled: true
     steps:
+      - attach_workspace:
+        at: public
       - run:
           name: Deploy built docs
           command: |
-            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; ls; scp -r ./specs/public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
+            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; ls; scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
 
 workflows:
   version: 2
