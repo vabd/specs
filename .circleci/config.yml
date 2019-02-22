@@ -18,21 +18,24 @@ jobs:
       - run:
           name: Submodule update
           command: git submodule update --remote
+      - run: mkdir workspace
       - run:
           name: Build
-          command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL
+          command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL -d workspace/public
       - persist_to_workspace:
-          root: public
+          root: workspace
+          paths:
+            - public
   deploy:
     machine:
       enabled: true
     steps:
       - attach_workspace:
-        at: public
+          at: workspace
       - run:
           name: Deploy built docs
           command: |
-            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; ls; scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
+            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; ls; scp -r /tmp/workspace/public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
 
 workflows:
   version: 2.1
