@@ -37,8 +37,8 @@ jobs:
           name: Deploy built docs
           command: |
             export PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`
-            ssh http@it-01.informo.network mkdir -p /srv/http/specs-staging/public/scs/$PR_NUMBER 2>&1 /dev/null
-            ls; scp -r /tmp/workspace/public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
+            ssh http@it-01.informo.network mkdir -p /srv/http/specs-staging/public/scs/$PR_NUMBER 2>&1 > /dev/null
+            scp -r /tmp/workspace/public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
 
 workflows:
   version: 2.1
