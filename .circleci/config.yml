@@ -1,0 +1,19 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:0.53
+    steps:
+      - checkout
+      - run:
+          name: Submodules init
+          command: git submodule init
+      - run:
+          name: Submodule update
+          command: git submodule update --remote
+      - run:
+          name: Build
+          command: BASE_URL="/${CIRCLE_NODE_INDEX}/${CIRCLE_WORKING_DIRECTORY/#\~/$HOME}/public/"; hugo -v -b $BASE_URL
+      - store_artifacts:
+          path: public
