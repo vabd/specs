@@ -15,19 +15,8 @@ jobs:
       - run:
           name: Build
           command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL
-  deploy:
-    machine:
-      enabled: true
-    steps:
       - run:
           name: Deploy built docs
           command: |
-            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; echo $PR_NUMBER; scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+            PR_NUMBER=`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`; scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$PR_NUMBER
+
