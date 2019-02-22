@@ -11,7 +11,7 @@ order to fulfil its mission.
 
 Informo needs to be as open and collaborative as possible for people to get
 involved, thus for it to work. For this reason, this documentation is also open
-and collaborative, which means that anyone can submit changes requests by
+and collaborative, which means that anyone can submit change requests by
 following the [specifications change submission protocol](/introduction/scsp).
 
 ### What is Informo?
@@ -25,7 +25,7 @@ serving it to anyone requesting it.
 
 This significantly hampers censorship because:
 
-* every server knows about the information, the whole federation must be
+* every server knows about the information, so the whole federation must be
   blocked in order to censor it. The list of servers participating in a
   federation can continuously grow and change, which can render such a blockade
   practically very hard, if not impossible, to manage.
@@ -36,7 +36,7 @@ This significantly hampers censorship because:
   the identification of Matrix traffic (and therefore Informo traffic) hard (but
   not impossible) to identify. On top of that, using security protocols such as
   [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) would render
-  such identification even harder
+  such identification even harder.
 
 You can learn more about Informo's approach on [this dedicated
 page](/informo/what-is-informo/).
