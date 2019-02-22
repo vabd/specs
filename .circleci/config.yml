@@ -14,7 +14,7 @@ jobs:
           command: git submodule update --remote
       - run:
           name: Build
-          command: BASE_URL="/scs/${CIRCLE_PR_NUMBER}/"; hugo -v -b $BASE_URL
+          command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL
   deploy:
     machine:
       enabled: true
@@ -23,7 +23,7 @@ jobs:
           name: Deploy built docs
           command: |
             ssh http@it-01.informo.network "mkdir /srv/http/specs-staging/public/ 2>&1 > /dev/null"
-            scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$CIRCLE_PR_NUMBER
+            scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`
 
 workflows:
   version: 2
