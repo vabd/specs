@@ -22,6 +22,7 @@ jobs:
       - run:
           name: Build
           command: BASE_URL="/scs/`echo $CIRCLE_PULL_REQUEST | rev | cut -d'/' -f1 | rev`/"; hugo -v -b $BASE_URL -d workspace/public
+      - run: ls workspace
       - persist_to_workspace:
           root: workspace
           paths:
