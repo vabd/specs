@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Deploy built docs
           command: |
-            ssh http@it-01.informo.network mkdir /srv/http/specs-staging/public/ 2>&1 > /dev/nul
+            ssh http@it-01.informo.network mkdir /srv/http/specs-staging/public/ 2>&1 > /dev/null
             scp -r ./public http@it-01.informo.network:/srv/http/specs-staging/public/scs/$CIRCLE_PR_NUMBER
 
 workflows:
