@@ -28,6 +28,7 @@ version of it in a `public` directory.
 
 ## Build the schemas
 
+
 For the sake of simplicity, this documentation uses SVG schemas, located in
 [/static/images](/static/images), in several locations. To make them render the
 same way for every platform, text font is converted to svg paths.
